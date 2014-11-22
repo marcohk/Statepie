@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class StateMachineBuilder<T extends State<T, E>, E> {
 
-    public static <T extends State<T, E>, E> FromStateMachineBuilder initial(T initialState) {
+    public static <T extends State<T, E>, E> FromStateMachineBuilder<T, E> initial(T initialState) {
         return new FromStateMachineBuilder<T, E>(new HashMap<StateEventPair<T, E>, T>(), initialState);
     }
 
@@ -22,11 +22,11 @@ public class StateMachineBuilder<T extends State<T, E>, E> {
             this.initialState = initialState;
         }
 
-        public ToStateMachineBuilder from(T fromState) {
+        public ToStateMachineBuilder<T, E> from(T fromState) {
             return new ToStateMachineBuilder<T, E>(stateEventMap, initialState, fromState);
         }
 
-        public SimpleStateMachine build() {
+        public SimpleStateMachine<T, E> build() {
             return new SimpleStateMachine<T, E>(stateEventMap, initialState);
         }
     }
@@ -43,7 +43,7 @@ public class StateMachineBuilder<T extends State<T, E>, E> {
             this.fromState = fromState;
         }
 
-        public OnStateMachineBuilder to(T toState) {
+        public OnStateMachineBuilder<T, E> to(T toState) {
             return new OnStateMachineBuilder<T, E>(stateEventMap, initialState, fromState, toState);
         }
     }
@@ -63,7 +63,7 @@ public class StateMachineBuilder<T extends State<T, E>, E> {
             this.toState = toState;
         }
 
-        public FromStateMachineBuilder on(E event) {
+        public FromStateMachineBuilder<T, E> on(E event) {
             stateEventMap.put(new StateEventPair<T, E>(fromState, event), toState);
             return new FromStateMachineBuilder<T, E>(stateEventMap, initialState);
         }

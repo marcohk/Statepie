@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TriggerStateMachineBuilder<T extends State<T, E>, E> {
 
-    public static <T extends State<T, E>, E> WhenTriggerStateMachineBuilder with(SimpleStateMachine<T, E> sm) {
+    public static <T extends State<T, E>, E> WhenTriggerStateMachineBuilder<T, E> with(SimpleStateMachine<T, E> sm) {
         return new WhenTriggerStateMachineBuilder<T, E>(sm);
     }
 
